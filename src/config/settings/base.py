@@ -13,13 +13,9 @@ from .components.cors_csrf import *
 from .components.static_media import *   
 from .components.auth import *            
 from .components.logging import *        
-from .components.celery import *         
-from .components.gemini import *      
-from .components.aws import *
 from .components.etc import *
 from .components.templates import *
 from .components.rest_jwt import *
-from .components.oauth import *
 
 ROOT_URLCONF = "config.urls"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
