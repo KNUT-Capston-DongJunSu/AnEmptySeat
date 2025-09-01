@@ -1,7 +1,7 @@
 INSTALLED_APPS = [
-    'corsheaders',
-    'django_extensions',
-    'storages',
+    "corsheaders",
+    "django_extensions",
+    "storages",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -9,4 +9,5 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework_simplejwt",
+    "videostream",
 ]
