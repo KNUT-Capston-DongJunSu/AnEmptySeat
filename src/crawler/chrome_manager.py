@@ -3,9 +3,25 @@ from typing import Optional
 from subprocess import Popen
 import chromedriver_autoinstaller
 from selenium_stealth import stealth
+from selenium.common import NoSuchElementException
 from selenium.webdriver import Chrome
 from selenium.webdriver import ChromeOptions
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys 
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
+__all__ = [
+    'Chrome',
+    'ChromeOptions',
+    'By',
+    'Keys',
+    'WebDriverWait',
+    'EC',
+    'NoSuchElementException',
+    'ChromeDriverService'
+]
+
 
 def find_available_port() -> int:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -25,6 +41,7 @@ def get_user_agent():
     elif system == "Darwin":  # MacOS
         return "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"
     return "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"
+
 
 class ChromeProcessManager:
     # Chrome 실행 경로 목록
@@ -72,6 +89,7 @@ class ChromeProcessManager:
         if self.process:
             self.process.terminate()
             self.process = None  
+
 
 class WebDriverController:
     def __init__(self):
@@ -125,7 +143,8 @@ class AdvancedStealthService:
 
         for script in scripts:
             browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {"source": script})
-            
+
+
 class ChromeDriverService(WebDriverController):
     def __init__(self, args=None, paths=None, stealth_config=None):
         self.process_manager: ChromeProcessManager = ChromeProcessManager()

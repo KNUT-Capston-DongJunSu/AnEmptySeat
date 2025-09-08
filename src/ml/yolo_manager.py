@@ -1,7 +1,7 @@
 import torch, cv2
 from ultralytics import YOLO
-from densEstAI.core.yolo.preprocessor import PreProcessor
-from densEstAI.core.yolo.processing_results import process_predicted_results
+from ml.preprocessor import PreProcessor
+from ml.processing_results import process_predicted_results
 
 class YoloManager:
     def __init__(self, model_path):    

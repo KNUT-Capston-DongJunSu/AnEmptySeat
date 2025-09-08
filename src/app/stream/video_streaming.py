@@ -4,13 +4,13 @@ import time
 import queue
 import threading
 from ocsort import OCSort
-from densEstAI.core.yolo.yolo_manager import YoloManager
-from densEstAI.core.analy.density_plotter import LivePlotter
-from densEstAI.core.analy.density_estimation import DensityEstimator
-from densEstAI.core.utils.tracking import tracking_object
-from densEstAI.core.utils.drawing_boxes import draw_tracking_boxes
-from densEstAI.core.utils.video_manager import BaseVideoCap, BaseVideoWriter
-from densEstAI.utils.common import detect_display
+from ml.yolo_manager import YoloManager
+from app.analy.density_plotter import LivePlotter
+from app.analy.density_estimation import DensityEstimator
+from app.utils.tracking import tracking_object
+from app.utils.drawing_boxes import draw_tracking_boxes
+from app.utils.video_manager import BaseVideoCap, BaseVideoWriter
+from app.utils.common import detect_display
 
 
 class BaseVideoStreamer:

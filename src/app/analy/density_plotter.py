@@ -4,7 +4,7 @@ from datetime import datetime
 from collections import deque
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-from densEstAI.core.utils.video_manager import BaseVideoWriter
+from app.utils.video_manager import BaseVideoWriter
 
 # 동영상 설정
 video_filename = "results/predict/video/graph_output.mp4"

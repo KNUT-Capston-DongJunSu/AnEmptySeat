@@ -1,10 +1,10 @@
 import os
 import json
 from datetime import datetime
-from densEstAI.core.utils.template_loader import load_template
-from densEstAI.core.utils.json_handler import load_json_data
-from densEstAI.core.utils.json_handler import save_json_data
-from densEstAI.core.utils.html_handler import save_html
+from app.utils.template_loader import load_template
+from app.utils.json_handler import load_json_data
+from app.utils.json_handler import save_json_data
+from app.utils.html_handler import save_html
 
 class HtmlGenerator:
     def __init__(self, template_path="template/template.html", output_path="FTP_files/index.html", json_path="template/tr_td_data.json"):
