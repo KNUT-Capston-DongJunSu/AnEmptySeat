@@ -5,13 +5,11 @@ import queue
 import threading
 from ocsort import OCSort
 from ml.yolo_manager import YoloManager
-from app.analy.density_plotter import LivePlotter
-from app.analy.density_estimation import DensityEstimator
-from app.utils.tracking import tracking_object
-from app.utils.drawing_boxes import draw_tracking_boxes
-from app.utils.video_manager import BaseVideoCap, BaseVideoWriter
-from app.utils.common import detect_display
-
+from src.app.analy.density_plotter import LivePlotter
+from src.app.analy.density_estimation import DensityEstimator
+from src.utils.tracking import tracking_object
+from src.utils.drawing_boxes import draw_tracking_boxes
+from src.utils.video_manager import BaseVideoCap, BaseVideoWriter
 
 class BaseVideoStreamer:
     

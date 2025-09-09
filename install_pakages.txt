@@ -1,5 +1,14 @@
-conda install scipy
+# 기본 과학 계산 및 GUI 패키지 설치
+conda install numpy scipy opencv-python matplotlib pillow PyQt6 networkx sympy -y
 
-conda install -c conda-forge lap
+# PyTorch 및 Torchvision 설치 (PyTorch 공식 채널 사용)
+conda install -c pytorch torch torchvision -y
 
+# 문제가 되었던 lap 패키지 설치 (conda-forge 채널 사용)
+conda install -c conda-forge lap -y
+
+# 2단계: pip으로 나머지 패키지 설치
+pip install django python-decouple  chromedriver-autoinstaller requests selenium selenium-stealth ultralytics
+
+# 3단계: ocsort만 따로 설치
 pip install ocsort --no-deps
