@@ -1,0 +1,5 @@
+conda install scipy
+
+conda install -c conda-forge lap
+
+pip install ocsort --no-deps
