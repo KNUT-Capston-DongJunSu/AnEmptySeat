@@ -7,5 +7,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "app.videostream",
     "app.storeimage",
+    "analy",
     ""
 ]
