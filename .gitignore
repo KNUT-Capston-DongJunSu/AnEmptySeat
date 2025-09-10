@@ -6,3 +6,6 @@
 
 # PyCharm Configuration
 .idea/
+
+# Vscode Configuration
+.vscode/

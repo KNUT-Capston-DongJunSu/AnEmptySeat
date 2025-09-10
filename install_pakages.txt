@@ -8,7 +8,7 @@ conda install -c pytorch torch torchvision -y
 conda install -c conda-forge lap -y
 
 # 2단계: pip으로 나머지 패키지 설치
-pip install django python-decouple  chromedriver-autoinstaller requests selenium selenium-stealth ultralytics
+pip install django chromedriver-autoinstaller requests selenium selenium-stealth ultralytics
 
 # 3단계: ocsort만 따로 설치
 pip install ocsort --no-deps
