@@ -1,64 +1,43 @@
-import os
-import re
-from wsgiref.util import FileWrapper
-from django.http import StreamingHttpResponse, HttpResponseNotFound
-from django.conf import settings
+import cv2
+from django.http import StreamingHttpResponse
+from .video_streaming import SingleThreadStreamer
+from ml.utils.tracking import tracking_object
+from ml.utils.drawing_boxes import draw_tracking_boxes
 
-range_re = re.compile(r'bytes\s*=\s*(\d+)-(\d*)', re.I)
+def generate_frames(video_path, model_path, camera_height):
+    # BaseVideoStreamer 와 유사한 초기화 로직
+    streamer = SingleThreadStreamer(video_path, model_path, "dummy_output", camera_height)
 
-class RangeFileWrapper:
-    def __init__(self, filelike, blksize=8192, offset=0, length=None):
-        self.filelike = filelike
-        self.filelike.seek(offset, os.SEEK_SET)
-        self.remaining = length
-        self.blksize = blksize
+    while streamer.cap.isOpened():
+        ret, frame = streamer.cap.read()
+        if not ret:
+            break
 
-    def __iter__(self):
-        return self
+        # 딥러닝 처리
+        results = streamer.model.smart_predict_yolo(frame=frame, conf=0.5)
+        tracked_objects = tracking_object(streamer.tracker, results, streamer.frame_id)
+        plot = draw_tracking_boxes(frame, tracked_objects)
 
-    def __next__(self):
-        if self.remaining is None:
-            # If length not given, just read in blocks
-            data = self.filelike.read(self.blksize)
-            if data:
-                return data
-            raise StopIteration()
-        else:
-            if self.remaining <= 0:
-                raise StopIteration()
-            data = self.filelike.read(min(self.remaining, self.blksize))
-            if not data:
-                raise StopIteration()
-            self.remaining -= len(data)
-            return data
+        # 결과를 비디오 파일이 아닌 JPEG 이미지로 인코딩
+        ret, buffer = cv2.imencode('.jpg', plot)
+        if not ret:
+            continue
 
-def stream_video(request, file_name):
-    # 비디오 파일의 경로를 설정합니다.
-    # 실제 프로덕션 환경에서는 이 부분을 모델과 연결하거나 더 안전한 방법을 사용해야 합니다.
-    video_path = os.path.join(settings.MEDIA_ROOT, file_name)
+        frame_bytes = buffer.tobytes()
 
-    if not os.path.exists(video_path):
-        return HttpResponseNotFound("File not found")
+        # HTTP 스트리밍 형식에 맞춰 데이터 전송 (yield)
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
 
-    range_header = request.META.get('HTTP_RANGE', '').strip()
-    range_match = range_re.match(range_header)
-    size = os.path.getsize(video_path)
-    content_type = 'video/mp4' # 파일에 맞는 content_type으로 변경하세요.
+    streamer.stop_stream()
 
-    if range_match:
-        first_byte, last_byte = range_match.groups()
-        first_byte = int(first_byte) if first_byte else 0
-        last_byte = int(last_byte) if last_byte else size - 1
-        if last_byte >= size:
-            last_byte = size - 1
-        length = last_byte - first_byte + 1
-        resp = StreamingHttpResponse(RangeFileWrapper(open(video_path, 'rb'), offset=first_byte, length=length), status=206, content_type=content_type)
-        resp['Content-Length'] = str(length)
-        resp['Content-Range'] = f'bytes {first_byte}-{last_byte}/{size}'
-    else:
-        # Range 헤더가 없을 경우, 전체 파일을 스트리밍합니다.
-        resp = StreamingHttpResponse(FileWrapper(open(video_path, 'rb')), content_type=content_type)
-        resp['Content-Length'] = str(size)
 
-    resp['Accept-Ranges'] = 'bytes'
-    return resp
+def live_stream_view(request):
+    video_path = "path/to/source_video.mp4"
+    model_path = "path/to/model.pt"
+    camera_height = 2.0
+
+    return StreamingHttpResponse(
+        generate_frames(video_path, model_path, camera_height),
+        content_type='multipart/x-mixed-replace; boundary=frame'
+    )
