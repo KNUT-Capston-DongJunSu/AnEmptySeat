@@ -7,9 +7,9 @@ from ocsort import OCSort
 from ml.yolo_manager import YoloManager
 from src.app.analy.density_plotter import LivePlotter
 from src.app.analy.density_estimation import DensityEstimator
-from src.utils.tracking import tracking_object
+from src.ml.utils.tracking import tracking_object
 from src.utils.drawing_boxes import draw_tracking_boxes
-from src.utils.video_manager import BaseVideoCap, BaseVideoWriter
+from src.app.videostream.video_manager import BaseVideoCap, BaseVideoWriter
 
 class BaseVideoStreamer:
     
