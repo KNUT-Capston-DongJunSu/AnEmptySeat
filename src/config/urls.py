@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('video/', include('app.videostream.urls')),
     path('image/', include('app.storeimage.urls')),
+    path('', include('app.analy.urls')),
 ]
 
 if settings.DEBUG:
