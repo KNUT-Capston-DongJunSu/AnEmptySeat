@@ -1,10 +1,15 @@
 import cv2
+import time # 시간 기록을 위해 time 모듈 추가
+from collections import deque # 리스트의 크기를 일정하게 유지하기 위해 deque 사용
+
 from django.core.cache import cache
 from django.http import StreamingHttpResponse
+
 from .video_streaming import SingleThreadStreamer
 from src.ml.utils.tracking import tracking_object
 from src.ml.utils.drawing_boxes import draw_tracking_boxes
 from src.app.analy.calc_congestion import calculate_congestion
+
 
 # def generate_frames(video_path, model_path, camera_height):
 #     # BaseVideoStreamer 와 유사한 초기화 로직
@@ -53,15 +58,23 @@ def generate_frames(video_path, model_path, camera_height):
         level, label = calculate_congestion(occupancy)
         plot = draw_tracking_boxes(frame, tracked_objects, label)
 
-        # ★★★ 전역 변수 대신 Django 캐시에 상태 저장 ★★★
-        congestion_data = {
-            "level": level,
-            "label": label,
-            "occupancy": occupancy
-        }
-        
-        # timeout=10 : 10초 동안 데이터가 유효함
+        # ★★★ 1. 현재 상태를 캐시에 저장 (기존 로직) ★★★
+        congestion_data = {"level": level, "label": label, "occupancy": occupancy}
         cache.set('current_congestion_status', congestion_data, timeout=10)
+
+        # ★★★ 2. 5초마다 시간별 데이터를 캐시에 누적 저장 (새로운 로직) ★★★
+        current_time = time.time()
+        if current_time - last_update_time > 5:
+            last_update_time = current_time
+            
+            # deque를 사용해 항상 최신 30개 데이터만 유지
+            history = cache.get('congestion_history', deque(maxlen=30))
+            
+            # 현재 시간과 객체 수를 튜플 형태로 추가
+            history.append((time.strftime('%H:%M:%S'), occupancy))
+            
+            # 업데이트된 내역을 다시 캐시에 저장
+            cache.set('congestion_history', history, timeout=3600)
 
         # JPEG 이미지로 인코딩
         ret, buffer = cv2.imencode('.jpg', plot)
