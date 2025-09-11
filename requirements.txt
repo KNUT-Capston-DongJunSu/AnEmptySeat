@@ -1,0 +1,66 @@
+asgiref==3.9.1
+attrs==25.3.0
+Brotli @ file:///C:/b/abs_c415aux9ra/croot/brotli-split_1736182803933/work
+certifi==2025.8.3
+cffi==1.17.1
+charset-normalizer==3.4.3
+chromedriver-autoinstaller==0.6.4
+contourpy @ file:///C:/b/abs_f2u2o_8s9g/croot/contourpy_1732540071787/work
+cycler @ file:///tmp/build/80754af9/cycler_1637851556182/work
+Django==5.2.6
+exceptiongroup==1.3.0
+filelock==3.19.1
+fonttools @ file:///C:/b/abs_4crkswws2h/croot/fonttools_1737040078745/work
+fsspec==2025.9.0
+h11==0.16.0
+idna==3.10
+Jinja2==3.1.6
+kiwisolver @ file:///C:/b/abs_faf90xet7a/croot/kiwisolver_1737040915779/work
+lap @ file:///D:/bld/lap_1756649033142/work
+MarkupSafe==3.0.2
+matplotlib==3.10.5
+mkl-service==2.4.0
+mkl_fft @ file:///C:/Users/dev-admin/mkl/mkl_fft_1730823082242/work
+mkl_random @ file:///C:/Users/dev-admin/mkl/mkl_random_1730822522280/work
+mpmath==1.3.0
+networkx==3.4.2
+numpy @ file:///C:/b/abs_0123vcxhf8/croot/numpy_and_numpy_base_1725470331966/work/dist/numpy-2.0.1-cp310-cp310-win_amd64.whl#sha256=e824ec3b279f4c5207736c83ac2f2dc79b489e08501a4ea9e3fc178c45db289b
+ocsort==0.0.2
+opencv-python==4.12.0.88
+outcome==1.3.0.post0
+packaging @ file:///C:/b/abs_f7t3vr2_lo/croot/packaging_1753775377650/work
+pillow @ file:///C:/b/abs_b50vowcrzo/croot/pillow_1738010273782/work
+polars==1.33.0
+psutil==7.0.0
+pycparser==2.22
+pyparsing @ file:///C:/b/abs_40z8gyj9wi/croot/pyparsing_1731445739241/work
+PyQt6==6.7.1
+PyQt6_sip @ file:///C:/b/abs_25j3xlesmj/croot/pyqt-split_1753427295085/work/pyqt_sip
+PySocks==1.7.1
+python-dateutil @ file:///C:/b/abs_3au_koqnbs/croot/python-dateutil_1716495777160/work
+python-decouple==3.8
+PyYAML==6.0.2
+requests==2.32.5
+scipy @ file:///C:/b/abs_71q96u23a4/croot/scipy_1747238057723/work/dist/scipy-1.15.3-cp310-cp310-win_amd64.whl#sha256=06013d45c5cad262bccdca1fbe5c25a720be04ae66dc83d75d1f749d118a7346
+selenium==4.35.0
+selenium-stealth==1.0.6
+sip @ file:///C:/b/abs_5cto136kse/croot/sip_1738856220313/work
+six @ file:///C:/b/abs_149wuyuo1o/croot/six_1744271521515/work
+sniffio==1.3.1
+sortedcontainers==2.4.0
+sqlparse==0.5.3
+sympy==1.14.0
+tomli @ file:///C:/b/abs_88e598m6o8/croot/tomli_1753774604115/work
+torch==2.8.0
+torchvision==0.23.0
+tornado @ file:///C:/b/abs_7dzpc171lf/croot/tornado_1748956950306/work
+trio==0.30.0
+trio-websocket==0.12.2
+typing_extensions==4.14.1
+tzdata==2025.2
+ultralytics==8.3.195
+ultralytics-thop==2.0.17
+unicodedata2 @ file:///C:/b/abs_dfnftvxi4k/croot/unicodedata2_1736543771112/work
+urllib3==2.5.0
+websocket-client==1.8.0
+wsproto==1.2.0
