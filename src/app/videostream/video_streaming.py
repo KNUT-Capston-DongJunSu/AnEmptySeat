@@ -8,7 +8,7 @@ from ml.yolo_manager import YoloManager
 from src.app.analy.density_plotter import LivePlotter
 from src.app.analy.density_estimation import DensityEstimator
 from src.ml.utils.tracking import tracking_object
-from src.utils.drawing_boxes import draw_tracking_boxes
+from src.ml.utils.drawing_boxes import draw_tracking_boxes
 from src.app.videostream.video_manager import BaseVideoCap, BaseVideoWriter
 
 class BaseVideoStreamer:

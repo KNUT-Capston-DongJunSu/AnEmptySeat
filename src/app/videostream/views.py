@@ -1,5 +1,8 @@
-from django.http import StreamingHttpResponse
 import cv2
+from django.http import StreamingHttpResponse
+from .video_streaming import SingleThreadStreamer
+from src.ml.utils.tracking import tracking_object
+from src.ml.utils.drawing_boxes import draw_tracking_boxes
 
 
 def generate_frames(video_path, model_path, camera_height):
