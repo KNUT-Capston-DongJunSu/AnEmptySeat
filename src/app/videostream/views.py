@@ -9,6 +9,7 @@ from .video_streaming import SingleThreadStreamer
 from src.ml.utils.tracking import tracking_object
 from src.ml.utils.drawing_boxes import draw_tracking_boxes
 from src.app.analy.calc_congestion import calculate_congestion
+from src.app.analy.occupancy import total_objects_area, total_occupancy
 
 
 # def generate_frames(video_path, model_path, camera_height):
@@ -52,8 +53,8 @@ def generate_frames(video_path, model_path, camera_height):
         results = streamer.model.smart_predict_yolo(frame=frame, conf=0.5)
         tracked_objects = tracking_object(streamer.tracker, results, streamer.frame_id)
 
-        ### 점유율 추정 로직 추가
-        # occupancy = 
+        # 점유율 추정 로직 추가
+        occupancy = total_occupancy(**total_objects_area(tracked_objects))
          
         level, label = calculate_congestion(occupancy)
         plot = draw_tracking_boxes(frame, tracked_objects, label)
