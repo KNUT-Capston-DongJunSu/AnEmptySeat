@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실시간 혼잡도</title>
+    <link rel="stylesheet" href="project.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+  <header class="top-header">
+      <div class="header-placeholder"></div>
+      <h1 class="main-title">프론트</h1>
+      <div id="clock" class="clock"></div>
+  </header>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="#"><i class="fa-solid fa-users"></i><span>실시간 인구</span></a></li>
+                    <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i><span>장소검색</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <section class="info-panel">
+                <div class="header">
+                    <h2>현재 카페 이름</h2>
+                    <span></span>
+                </div>
+                <div class="card population">
+                    <h3>실시간 인구 현황</h3>
+                    <div class="population-graph">
+                        <img src="" alt="인구 현황 그래프">
+                    </div>
+                    <div class="population-details">
+                        <p class="count">N명</p>
+                        <p>오늘의 인기 시간대<strong></strong></p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="map-area">
+                <img src="" alt="카페 이미지" class="map-background">
+            </section>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
