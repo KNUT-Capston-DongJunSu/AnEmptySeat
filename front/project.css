@@ -7,6 +7,52 @@
     box-sizing: border-box;
 }
 
+.carousel {
+  width: 820px;       /* 원하는 고정 너비 또는 max-width 사용 */
+  max-width: 100%;
+  margin:0 auto;     /* <-- 핵심: 가로 중앙 정렬 */
+  position: relative;
+  display: flex;      /* 버튼을 포함해 중앙에 정렬하고 싶으면 flex 사용 */
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  gap: 12px;
+}
+
+.viewport {
+  width: 600px;            /* 보여질 영역 너비 */
+  overflow: hidden;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+.track {
+  display: flex;
+  transition: transform 0.5s ease;
+  will-change: transform;
+}
+.track img {
+  width: 600px;            /* viewport와 동일하게 */
+  flex-shrink: 0;
+  object-fit: cover;
+  display: block;
+  align-self: center;
+}
+.btn {
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  font-size: 24px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
 body {
     font-family: 'Noto Sans KR', sans-serif;
     background-color: #f4f6f9;
@@ -73,7 +119,7 @@ body {
 
 /* 정보 패널 */
 .info-panel {
-    flex: 0 0 380px; /* 왼쪽 패널 너비 고정 */
+    width:700px; /* 왼쪽 패널 너비 고정 */
     padding: 20px;
     background-color: #fff;
     overflow-y: auto;
@@ -89,10 +135,10 @@ body {
 .population-details .count { font-size: 24px; font-weight: bold; color: #007bff; margin-bottom: 10px; }
 .population-details p { font-size: 14px; line-height: 1.6; }
 
-/* 지도 영역 */
-.map-area {
-    flex: 1; /* 오른쪽 패널이 남은 공간을 모두 차지 */
-    position: relative;
+/* 이미지 영역 */
+.imag-area {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
     background-color: #e9ecef;
 }
-.map-area .map-background { width: 100%; height: 100%; object-fit: cover; }

@@ -1,5 +1,4 @@
 const clockElement = document.getElementById('clock');
-
 function updateClock() {
     const now = new Date();
     const year = now.getFullYear();
@@ -12,3 +11,22 @@ function updateClock() {
 }
 setInterval(updateClock, 1000);
 updateClock();
+
+const track = document.querySelector('.track');
+const slides = Array.from(track.children);
+const prev = document.querySelector('.prev');
+const next = document.querySelector('.next');
+let index = 0;
+
+function update() {
+  const offset = -index * slides[0].getBoundingClientRect().width;
+  track.style.transform = `translateX(${offset}px)`;
+  prev.disabled = index === 0;
+  next.disabled = index === slides.length - 1;
+}
+
+prev.addEventListener('click', () => { index = Math.max(0, index - 1); update(); });
+next.addEventListener('click', () => { index = Math.min(slides.length - 1, index + 1); update(); });
+
+window.addEventListener('resize', update);
+update();
