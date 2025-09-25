@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실시간 혼잡도</title>
+    <link rel="stylesheet" href="{% static 'project.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+  <header class="top-header">
+      <div class="header-placeholder"></div>
+      <h1 class="main-title">프론트</h1>
+      <div id="clock" class="clock"></div>
+  </header>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="#"><i class="fa-solid fa-users"></i><span>실시간 인구</span></a></li>
+                    <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i><span>장소검색</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div class="card">
+                <h2>실시간 영상</h2>
+                <img src="{% url 'live_stream_view' file_name='111.mp4' %}"
+                    alt="Live Stream" 
+                    style="width:100%; max-width:640px; border-radius: 8px;">
+            </div>
+            <section class="info-panel">
+                <div class="header">
+                    <h2>현재 카페 이름</h2>
+                    <span></span>
+                </div>
+                <div class="card population">
+                    <h3>실시간 인구 현황</h3>
+                    <div class="population-graph">
+                        <img id="graph-image" src="" data-src="{% url 'congestion_graph' %}" alt="인구 현황 그래프 로딩 중...">
+                    </div>
+                    <div class="population-details">
+                        <p class="count">N명</p>
+                        <p>오늘의 인기 시간대</p>
+                    </div>
+                </div>
+            </section>
+            <section class="imag-area">
+            <div class="carousel">
+                <button class="btn prev" aria-label="이전">‹</button>
+                <div class="viewport">
+                    <div class="track">
+                        <img src="cafe0.jpg" alt="">
+                        <img src="cafe1.jpg" alt="">
+                        <img src="cafe2.jpg" alt="">
+                    </div>
+                </div>
+                <button class="btn next" aria-label="다음">›</button>
+                </div>
+            </section>
+        </main>
+    </div>
+<<<<<<< HEAD:front/project.html
+    <script src="script.js"></script>
+=======
+    
+    <script src="{% static 'script.js' %}"></script>
+    <script>
+        // 그래프를 업데이트하는 함수를 따로 만듭니다.
+        function updateGraph() {
+            const graphImage = document.getElementById('graph-image');
+            if (graphImage) {
+                // ✨ 핵심: 캐시(Cache) 방지를 위해 URL 뒤에 현재 시간을 덧붙입니다.
+                // 이렇게 하면 브라우저는 매번 새로운 이미지라고 인식하여 서버에 다시 요청합니다.
+                const url = graphImage.dataset.src;
+                graphImage.src = url + '?t=' + new Date().getTime();
+            }
+        }
+
+        // 페이지가 처음 로드될 때 한 번 즉시 실행
+        updateGraph();
+
+        // 그 후 5초(5000밀리초)마다 updateGraph 함수를 계속해서 실행
+        setInterval(updateGraph, 5000);
+    </script>
+>>>>>>> 3183fa0 (많고 많은 수정):front/templates/project.html
+</body>
+</html>
