@@ -31,23 +31,19 @@ next.addEventListener('click', () => { index = Math.min(slides.length - 1, index
 window.addEventListener('resize', update);
 update();
 
+// 옆의 버튼 이벤트 입력을 감시 및 실행 //
 
-// 옆의 버튼 이벤트 입력을 감시하는 함수들 //
+const menuList = document.querySelector('.menu ul');
 
-const menuItems = document.querySelectorAll('.menu li');
+menuList.addEventListener('click', function(event) {
+    const clickedItem = event.target.closest('li');
+    if (!clickedItem) return;
+    const menuText = clickedItem.querySelector('span').textContent;
+    console.log(menuText);
 
-menuItems.forEach(item => {
-    item.addEventListener('click', function() 
-    {
-        const menuText = item.querySelector('span').textContent;
-        console.log(menuText + ' 버튼 클릭됨!');
-        if (menuText === '실시간 인구') 
-          {
-            alert('실시간 인구 정보를 표시합니다.');
-          }
-           else if (menuText === '장소검색') 
-          {
-            alert('장소검색 기능을 실행합니다.');
-          }
-    });
+    if (menuText === '실시간 인구') {
+        alert('실시간 인구 정보를 표시합니다.');
+    } else if (menuText === '장소검색') {
+        alert('장소검색 기능을 실행합니다.');
+    }
 });
