@@ -1,14 +1,21 @@
-from django.contrib import admin
-from django.urls import path, include
 from django.conf import settings
+from django.contrib import admin
+from django.shortcuts import render
+from django.urls import path, include
 from django.conf.urls.static import static
+
+def main_page(request):
+    """메인 페이지를 렌더링하는 뷰 함수"""
+    return render(request, 'project.html', {})
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('video/', include('app.videostream.urls')),
     path('image/', include('app.storeimage.urls')),
     path('', include('app.analy.urls')),
+    path('', main_page, name='main'),
 ]
 
+
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
