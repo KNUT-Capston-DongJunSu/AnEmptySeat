@@ -1,4 +1,8 @@
 const clockElement = document.getElementById('clock');
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/joon
 function updateClock() {
     const now = new Date();
     const year = now.getFullYear();
@@ -10,6 +14,7 @@ function updateClock() {
     clockElement.textContent = `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
 }
 setInterval(updateClock, 1000);
+<<<<<<< HEAD
 updateClock();
 
 const track = document.querySelector('.track');
@@ -30,3 +35,6 @@ next.addEventListener('click', () => { index = Math.min(slides.length - 1, index
 
 window.addEventListener('resize', update);
 update();
+=======
+updateClock();
+>>>>>>> origin/joon
