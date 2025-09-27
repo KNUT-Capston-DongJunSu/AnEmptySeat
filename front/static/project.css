@@ -8,7 +8,7 @@
 }
 
 .carousel {
-  width: 820px;       /* 원하는 고정 너비 또는 max-width 사용 */
+  width: 800px;       /* 원하는 고정 너비 또는 max-width 사용 */
   max-width: 100%;
   margin:0 auto;     /* <-- 핵심: 가로 중앙 정렬 */
   position: relative;
@@ -119,7 +119,7 @@ body {
 
 /* 정보 패널 */
 .info-panel {
-    width:700px; /* 왼쪽 패널 너비 고정 */
+    width:50%; /* 왼쪽 패널 너비 고정 */
     padding: 20px;
     background-color: #fff;
     overflow-y: auto;
