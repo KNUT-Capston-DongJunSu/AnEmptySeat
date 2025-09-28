@@ -31,7 +31,7 @@
                 <h2>실시간 영상</h2>
                 <img src="{% url 'live_stream_view' file_name='111.mp4' %}"
                     alt="Live Stream" 
-                    style="width:100%; max-width:640px; border-radius: 8px;">
+                    style="width:100%; max-width:1270px; border-radius: 8px;">
             </div>
             <section class="info-panel">
                 <div class="header">
@@ -43,9 +43,9 @@
                     <div class="population-graph">
                         <img id="graph-image" src="" data-src="{% url 'congestion_graph' %}" alt="인구 현황 그래프 로딩 중...">
                     </div>
-                    <div class="population-details">
-                        <p class="count">N명</p>
-                        <p>오늘의 인기 시간대</p>
+                    <div class="population-details" data-url="{% url 'congestion_status' %}">
+                        <p id="population-count" class="count">측정중...</p>
+                        <p id="congestion-steps" class="step">측정중...</p>
                     </div>
                 </div>
             </section>
@@ -82,6 +82,38 @@
 
         // 그 후 5초(5000밀리초)마다 updateGraph 함수를 계속해서 실행
         setInterval(updateGraph, 5000);
+    </script>
+    <script>
+        // 1. 필요한 HTML 요소들을 가져옵니다.
+        const populationDiv = document.querySelector('.population-details');
+        const countElement = document.getElementById('population-count');
+        const CongestionElement = document.getElementById('congestion-steps');
+        
+        // 2. HTML에 저장해둔 API URL을 가져옵니다.
+        const apiUrl = populationDiv.dataset.url;
+
+        // 3. 혼잡도 데이터를 요청하고 화면을 업데이트하는 함수를 만듭니다.
+        function updateCongestionStatus() {
+            fetch(apiUrl) // API에 데이터 요청
+                .then(response => response.json()) // 응답을 JSON 형태로 변환
+                .then(data => {
+                    // JSON 데이터에서 object_count 값을 사용해 화면의 텍스트를 변경
+                    // 예: data = {"level": 3, "label": "혼잡", "object_count": 52}
+                    countElement.textContent = `${data.object_count}명`;
+                    CongestionElement.textContent = `${data.label}`;
+                })
+                .catch(error => {
+                    // 에러가 발생하면 콘솔에 출력
+                    console.error('데이터를 불러오는 데 실패했습니다:', error);
+                    countElement.textContent = '오류';
+                });
+        }
+
+        // 4. 페이지가 처음 로드될 때 한번 실행하고,
+        updateCongestionStatus();
+        
+        // 5. 그 후 5초(5000ms)마다 주기적으로 함수를 반복 실행합니다. (시간은 조절 가능)
+        setInterval(updateCongestionStatus, 5000); 
     </script>
 </body>
 </html>

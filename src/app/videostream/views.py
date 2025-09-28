@@ -12,41 +12,14 @@ from django.http import StreamingHttpResponse
 from .video_streaming import SingleThreadStreamer
 from src.ml.utils.tracking import tracking_object
 from src.ml.utils.drawing_boxes import draw_tracking_boxes
-from src.app.analy.calc_congestion import calculate_congestion
-from src.app.analy.occupancy import total_objects_area, total_occupancy
-
-
-# def generate_frames(video_path, model_path, camera_height):
-#     # BaseVideoStreamer 와 유사한 초기화 로직
-#     streamer = SingleThreadStreamer(video_path, model_path, "dummy_output", camera_height)
-
-#     while streamer.cap.isOpened():
-#         ret, frame = streamer.cap.read()
-#         if not ret:
-#             break
-
-#         # 딥러닝 처리
-#         results = streamer.model.smart_predict_yolo(frame=frame, conf=0.5)
-#         tracked_objects = tracking_object(streamer.tracker, results, streamer.frame_id)
-#         plot = draw_tracking_boxes(frame, tracked_objects)
-        
-#         # 결과를 비디오 파일이 아닌 JPEG 이미지로 인코딩
-#         ret, buffer = cv2.imencode('.jpg', plot)
-#         if not ret:
-#             continue
-        
-#         frame_bytes = buffer.tobytes()
-
-#         # HTTP 스트리밍 형식에 맞춰 데이터 전송 (yield)
-#         yield (b'--frame\r\n'
-#                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
-
-#     streamer.stop_stream()
+from src.app.analy.calc_congestion import CongestionCalculator
+from src.app.analy.occupancy import calc_spatial_density
 
 def generate_frames(video_path, model_path, camera_height):
     last_update_time = 0
     frame_id = 0
     streamer = SingleThreadStreamer(video_path, model_path, "dummy_output.mp4", camera_height)
+    congestion_calc = CongestionCalculator()
 
     while streamer.cap.isOpened():
         ret, frame = streamer.cap.read()
@@ -60,17 +33,19 @@ def generate_frames(video_path, model_path, camera_height):
             continue
 
         # --- 딥러닝 및 혼잡도 계산 로직 ---
-        results = streamer.model.smart_predict_yolo(frame=frame, conf=0.25)
+        results = streamer.model.smart_predict_yolo(frame=frame, conf=0.07)
         tracked_objects = tracking_object(streamer.tracker, results, streamer.frame_id)
+        object_count = len(tracked_objects)
 
         # 점유율 추정 로직 추가
-        occupancy = total_occupancy(*total_objects_area(tracked_objects))
-         
-        level, label = calculate_congestion(occupancy)
+        occupancy = calc_spatial_density(tracked_objects)
+        
+        level, label = congestion_calc.calculate_level(occupancy, object_count)
+        print(f"occupancy, label: {occupancy} {label}")
         plot = draw_tracking_boxes(frame, tracked_objects, label)
 
         # ★★★ 1. 현재 상태를 캐시에 저장 (기존 로직) ★★★
-        congestion_data = {"level": level, "label": label, "occupancy": occupancy}
+        congestion_data = {"level": level, "label": label, "occupancy": occupancy, "object_count": object_count}
         cache.set('current_congestion_status', congestion_data, timeout=10)
 
         # ★★★ 2. 5초마다 시간별 데이터를 캐시에 누적 저장 (새로운 로직) ★★★

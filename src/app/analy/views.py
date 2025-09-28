@@ -8,12 +8,13 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.core.cache import cache
 
-def congestion_api(request):
+def congestion_status(request):
     """현재 혼잡도 상태를 JSON으로 반환하는 API 뷰"""
     # ★★★ 전역 변수 대신 Django 캐시에서 상태 조회 ★★★
     status = cache.get('current_congestion_status', {
         "level": 0,
         "label": "측정중",
+        "occupancy": 0,
         "object_count": 0
     }) # 캐시에 값이 없으면 기본값 반환
     return JsonResponse(status)
@@ -32,7 +33,7 @@ def congestion_graph_view(request):
     fig, ax1 = plt.subplots(figsize=(10, 6))
 
     # 1. 막대 그래프 (ax1에 그리기)
-    ax1.bar(timestamps, counts, color='skyblue', label='Occupation Ratio')
+    ax1.bar(timestamps, counts, color='skyblue', label='Occupation')
     
     # 2. 꺾은선 그래프 (동일한 ax1에 그리기)
     ax1.plot(timestamps, counts, color='red', marker='o', linestyle='-', label='Trend')

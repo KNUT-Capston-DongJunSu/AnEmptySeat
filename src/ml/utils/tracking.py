@@ -51,7 +51,6 @@ def tracking_object_filtered(tracker, tracker_input, frame_id):
 
 def tracking_object(tracker, tracker_input, frame_id):
     if len(tracker_input) == 0:
-        track_hist = []
-    else:
-        tracked_objects = tracker.update(tracker_input, frame_id)
-    return tracked_objects
+        return []
+    else: 
+        return tracker.update(tracker_input, frame_id)
