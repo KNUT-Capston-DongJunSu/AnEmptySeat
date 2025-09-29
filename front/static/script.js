@@ -31,3 +31,83 @@ next.addEventListener('click', () => { index = Math.min(slides.length - 1, index
 
 window.addEventListener('resize', update);
 update();
+
+// 그래프를 업데이트하는 함수를 따로 만듭니다.
+function updateGraph() {
+    const graphImage = document.getElementById('graph-image');
+    if (graphImage) {
+        // ✨ 핵심: 캐시(Cache) 방지를 위해 URL 뒤에 현재 시간을 덧붙입니다.
+        // 이렇게 하면 브라우저는 매번 새로운 이미지라고 인식하여 서버에 다시 요청합니다.
+        const url = graphImage.dataset.src;
+        graphImage.src = url + '?t=' + new Date().getTime();
+    }
+}
+
+// 페이지가 처음 로드될 때 한 번 즉시 실행
+updateGraph();
+
+// 그 후 5초(5000밀리초)마다 updateGraph 함수를 계속해서 실행
+setInterval(updateGraph, 5000);
+
+const populationDiv = document.querySelector('.population-details');
+const countElement = document.getElementById('population-count');
+const CongestionElement = document.getElementById('congestion-steps');
+
+// 2. HTML에 저장해둔 API URL을 가져옵니다.
+const apiUrl = populationDiv.dataset.url;
+
+// 3. 혼잡도 데이터를 요청하고 화면을 업데이트하는 함수를 만듭니다.
+function updateCongestionStatus() {
+    fetch(apiUrl) // API에 데이터 요청
+        .then(response => response.json()) // 응답을 JSON 형태로 변환
+        .then(data => {
+            // JSON 데이터에서 object_count 값을 사용해 화면의 텍스트를 변경
+            // 예: data = {"level": 3, "label": "혼잡", "object_count": 52}
+            countElement.textContent = `${data.object_count}명`;
+            CongestionElement.textContent = `${data.label}`;
+        })
+        .catch(error => {
+            // 에러가 발생하면 콘솔에 출력
+            console.error('데이터를 불러오는 데 실패했습니다:', error);
+            countElement.textContent = '오류';
+        });
+}
+
+// 4. 페이지가 처음 로드될 때 한번 실행하고,
+updateCongestionStatus();
+
+// 5. 그 후 5초(5000ms)마다 주기적으로 함수를 반복 실행합니다. (시간은 조절 가능)
+setInterval(updateCongestionStatus, 5000);
+
+// ===================================================
+// 실시간 영상 모달 기능
+// ===================================================
+
+// 1. 필요한 HTML 요소들을 선택합니다.
+const openModalBtn = document.getElementById('open-video-modal');
+const closeModalBtn = document.getElementById('close-video-modal');
+const modalOverlay = document.getElementById('video-modal-overlay');
+
+// 2. 모달을 여는 함수
+function openModal() {
+    modalOverlay.classList.remove('hidden');
+}
+
+// 3. 모달을 닫는 함수
+function closeModal() {
+    modalOverlay.classList.add('hidden');
+}
+
+// 4. '실시간 영상' 버튼 클릭 시 모달 열기
+openModalBtn.addEventListener('click', openModal);
+
+// 5. 'X' 버튼 클릭 시 모달 닫기
+closeModalBtn.addEventListener('click', closeModal);
+
+// 6. 팝업 바깥의 어두운 영역 클릭 시 모달 닫기
+modalOverlay.addEventListener('click', function(event) {
+    // 만약 클릭된 곳이 어두운 배경(overlay) 자신이라면
+    if (event.target === modalOverlay) {
+        closeModal();
+    }
+});
