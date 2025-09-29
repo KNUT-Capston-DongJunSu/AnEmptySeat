@@ -1,10 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>실시간 혼잡도</title>
-    <link rel="stylesheet" href="../static/project.css">
+    <!-- 프론트 부분과 백엔드 부분 나눠서 주석처리 하면 주석 해제하고 하면 될 것 같아요. -->
+    <!-- 이 부분은 프론트 -->
+    <!-- <link rel="stylesheet" href="../static/project.css"> -->
+    <!-- 이 부분은 백엔드 -->
+    <link rel="stylesheet" href="{% static 'project.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
@@ -37,7 +42,8 @@
                         <i id="density_Icon" class ="fa-face-grin-beam"></i>
                     </div>
                     <div class="population-graph">
-                        <img id="graph-image" src="" data-src="{% url 'congestion_graph' %}" alt="인구 현황 그래프 로딩 중...">
+                        <!-- <img id="graph-image" src="../static/graph.png" data-src="{% url 'congestion_graph' %}"> -->
+                        <img id="graph-image" src="{% static 'graph.png' %}" data-src="{% url 'congestion_graph' %}">
                     </div>
                     <div class="population-details" data-url="{% url 'congestion_status' %}">
                         <p id="population-count" class="count">측정중...</p>
@@ -50,9 +56,14 @@
                     <button class="btn prev" aria-label="이전">‹</button>
                     <div class="viewport">
                         <div class="track">
-                            <img src="../static/cafe0.jpg" alt="">
+                            <!-- <img src="../static/cafe0.jpg" alt="">
                             <img src="../static/cafe1.jpg" alt="">
                             <img src="../static/cafe2.jpg" alt="">
+                             -->
+
+                            <img src="{% static 'cafe0.jpg' %}" alt="">
+                            <img src="{% static 'cafe1.jpg' %}" alt="">
+                            <img src="{% static 'cafe2.jpg' %}" alt="">
                         </div>
                     </div>
                     <button class="btn next" aria-label="다음">›</button>
@@ -60,17 +71,18 @@
             </section>
         </main>
     </div>
-<div id="video-modal-overlay" class="modal-overlay hidden">
-    <div class="modal-content">
-        <button id="close-video-modal" class="close-button">&times;</button>
-        <h2>실시간 영상</h2>
-        <div class="video-container">
-            <video controls autoplay muted loop style="width:100%; max-width:1270px; border-radius: 8px;">
-            <source src="../111.mp4" type="video/mp4">
-            </video>
+    <div id="video-modal-overlay" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button id="close-video-modal" class="close-button">&times;</button>
+            <h2>실시간 영상</h2>
+            <div class="video-container">
+                <video controls autoplay muted loop style="width:100%; max-width:1270px; border-radius: 8px;">
+                <!-- <source src="../111.mp4" type="video/mp4"> -->
+                <source src="{% url 'live_stream_view' file_name='111.mp4' %}" type="video/mp4">
+                </video>
+            </div>
         </div>
     </div>
-</div>
-<script src="../static/script.js"></script>
-</body>
+    <script src="../static/script.js"></script>
+    </body>
 </html>

@@ -55,5 +55,5 @@ def congestion_graph_view(request):
     plt.savefig(buf, format='png')
     plt.close(fig)
     buf.seek(0)
-
+    
     return HttpResponse(buf.getvalue(), content_type='image/png')
