@@ -52,6 +52,7 @@ setInterval(updateGraph, 5000);
 const populationDiv = document.querySelector('.population-details');
 const countElement = document.getElementById('population-count');
 const CongestionElement = document.getElementById('congestion-steps');
+//const value = 0;
 
 // 2. HTML에 저장해둔 API URL을 가져옵니다.
 const apiUrl = populationDiv.dataset.url;
@@ -64,6 +65,7 @@ function updateCongestionStatus() {
             // JSON 데이터에서 object_count 값을 사용해 화면의 텍스트를 변경
             // 예: data = {"level": 3, "label": "혼잡", "object_count": 52}
             countElement.textContent = `${data.object_count}명`;
+            //value = parseInt(data.object_count);
             CongestionElement.textContent = `${data.label}`;
         })
         .catch(error => {
@@ -78,6 +80,44 @@ updateCongestionStatus();
 
 // 5. 그 후 5초(5000ms)마다 주기적으로 함수를 반복 실행합니다. (시간은 조절 가능)
 setInterval(updateCongestionStatus, 5000);
+
+// 혼잡도 수치에 따라 아이콘과 색상을 업데이트하는 함수
+function density_Icon(value) {
+    const iconElement = document.getElementById('density_Icon');
+    const valueElement = document.getElementById('population-count');
+    let newIconClass = '';
+    let newColor = '';
+
+    // 1. 값에 따라 아이콘 클래스와 색상을 결정합니다.
+    if (value <= 30) { // 0~30: 원활
+        newIconClass = 'fa-solid fa-face-grin-beam fa-8x';
+        newColor = '#5cb85c'; // 초록색
+    } else if (value <= 50 && value > 30) { // 31~70: 보통
+        newIconClass = 'fa-solid fa-face-meh fa-8x';
+        newColor = '#f0ad4e'; // 주황색
+    } else if (value > 50 && value <= 71) { // 71 이상: 혼잡
+        newIconClass = 'fa-solid fa-face-frown fa-8x';
+        newColor = '#d9534f'; // 빨간색
+    }
+    else {
+        newIconClass = 'fa-solid fa-face-dizzy fa-8x';
+        newColor = '#000000ff';
+    }
+
+    // 2. 아이콘 요소의 클래스와 스타일을 변경합니다.
+    // className을 통째로 바꿔서 'fa-solid fa-2x'는 유지하고 아이콘 이름만 교체합니다.
+    iconElement.className = newIconClass; 
+    iconElement.style.color = newColor;
+
+    // 3. 화면에 현재 값도 표시해 줍니다.
+    valueElement.textContent = value;
+}
+
+// === 함수 테스트 ===
+// updateCongestionIcon(25);  // 원활 아이콘 표시
+// updateCongestionIcon(65);  // 보통 아이콘 표시
+density_Icon(72);  // 혼잡 아이콘 표시
+
 
 // ===================================================
 // 실시간 영상 모달 기능
