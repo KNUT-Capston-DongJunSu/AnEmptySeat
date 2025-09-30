@@ -5,7 +5,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "app.videostream",
-    "app.storeimage",
-    "app.analy",
+    "src.app.videostream",
+    "src.app.storeimage",
+    "src.app.analy",
 ]
