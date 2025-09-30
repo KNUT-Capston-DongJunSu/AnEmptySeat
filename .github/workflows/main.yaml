@@ -32,8 +32,6 @@ jobs:
             # [수정] 배포 시에는 꼭 필요한 명령어만 실행합니다.
             cd ~/AnEmptySeat
             git pull origin main
-
-            # (필요 시) 실행 중인 Django 서버 재시작
-            # 예: sudo systemctl restart gunicorn 또는 pm2 restart app
             
+            pm2 restart app
             echo "Deployment finished successfully!"
