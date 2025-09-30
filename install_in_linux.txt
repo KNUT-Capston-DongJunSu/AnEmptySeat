@@ -1,4 +1,4 @@
-ssh -i ./ec2-recover-key ubuntu@54.196.225.37
+ssh -i ./.ssh/ec2-recover-key ubuntu@54.196.225.37
 
 # PPA 추가에 필요한 기본 패키지 설치
 sudo apt install software-properties-common -y

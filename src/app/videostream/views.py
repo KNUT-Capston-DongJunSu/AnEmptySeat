@@ -4,12 +4,12 @@ import cv2
 import time # 시간 기록을 위해 time 모듈 추가
 from collections import deque # 리스트의 크기를 일정하게 유지하기 위해 deque 사용
 
-from config.settings import BASE_DIR
 
 from django.core.cache import cache
 from django.http import StreamingHttpResponse
 
 from .video_streaming import SingleThreadStreamer
+from src.config.settings import BASE_DIR
 from src.ml.utils.tracking import tracking_object
 from src.ml.utils.drawing_boxes import draw_tracking_boxes
 from src.app.analy.calc_congestion import CongestionCalculator
@@ -22,7 +22,7 @@ def generate_frames(video_path, model_path, camera_height):
     congestion_calc = CongestionCalculator()
 
     while streamer.cap.isOpened():
-        ret, frame = streamer.cap.read()
+        ret, frame = streamer.cap.read()    
         frame_id += 1
         if frame_id % 3 != 0:
             continue
