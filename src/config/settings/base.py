@@ -12,10 +12,10 @@ from .components.logging import *
 from .components.templates import *
 from .components.static import *
 
-ROOT_URLCONF = "config.urls"
+ROOT_URLCONF = "Ssrc.config.urls"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-WSGI_APPLICATION = "config.wsgi.application"
-ASGI_APPLICATION = "config.asgi.application"
+WSGI_APPLICATION = "Ssrc.config.wsgi.application"
+ASGI_APPLICATION = "Ssrc.config.asgi.application"
 LANGUAGE_CODE = "ko-kr"
 TIME_ZONE = "Asia/Seoul"
 USE_I18N = True
