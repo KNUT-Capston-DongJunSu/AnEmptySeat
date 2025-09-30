@@ -1,0 +1,39 @@
+name: Deploy to AWS EC2 with OIDC
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::728504532641:role/capdi
+          aws-region: us-east-1 
+
+      - name: Deploy to EC2 instance
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # [수정] 배포 시에는 꼭 필요한 명령어만 실행합니다.
+            cd ~/AnEmptySeat
+            git pull origin main
+
+            # (필요 시) 실행 중인 Django 서버 재시작
+            # 예: sudo systemctl restart gunicorn 또는 pm2 restart app
+            
+            echo "Deployment finished successfully!"
