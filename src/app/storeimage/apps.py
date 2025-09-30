@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class StoreimageConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "app.storeimage"
+    name = "src.app.storeimage"

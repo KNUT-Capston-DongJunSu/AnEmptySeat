@@ -10,9 +10,9 @@ def main_page(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('video/', include('app.videostream.urls')),
-    path('image/', include('app.storeimage.urls')),
-    path('', include('app.analy.urls')),
+    path('video/', include('src.app.videostream.urls')),
+    path('image/', include('src.app.storeimage.urls')),
+    path('', include('src.app.analy.urls')),
     path('', main_page, name='main'),
 ]
 
