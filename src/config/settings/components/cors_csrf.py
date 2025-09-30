@@ -1,7 +1,4 @@
 CORS_ALLOWED_ORIGINS = [
 ]
 
-ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1"
-]
+ALLOWED_HOSTS = ['54.196.225.37', 'localhost', '127.0.0.1']
