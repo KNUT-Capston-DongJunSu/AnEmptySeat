@@ -30,8 +30,10 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             # [수정] 배포 시에는 꼭 필요한 명령어만 실행합니다.
+            conda activate myenv
+            
             cd ~/AnEmptySeat
             git pull origin main
+            sudo systemctl restart gunicorn 
             
-            pm2 restart app
             echo "Deployment finished successfully!"
