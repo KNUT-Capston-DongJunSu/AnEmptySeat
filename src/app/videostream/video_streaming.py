@@ -5,7 +5,7 @@ import queue
 import threading
 import numpy as np
 from ocsort import OCSort
-from ml.yolo_manager import YoloManager
+from src.ml.yolo_manager import YoloManager
 from src.app.analy.density_plotter import LivePlotter
 from src.app.analy.density_estimation import DensityEstimator
 from src.ml.utils.tracking import tracking_object
