@@ -1,7 +1,7 @@
 import torch, cv2
 from ultralytics import YOLO
-from ml.preprocessor import PreProcessor
-from ml.processing_results import process_predicted_results
+from src.ml.preprocessor import PreProcessor
+from src.ml.processing_results import process_predicted_results
 
 class YoloManager:
     def __init__(self, model_path):    

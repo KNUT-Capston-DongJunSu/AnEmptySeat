@@ -3,7 +3,7 @@ from .utils import *
 from .chrome_manager import *
 from datetime import datetime
 from urllib.parse import urlparse
-from app.utils.json_handler import save_json_data
+from src.utils.json_handler import save_json_data
 
 
 class ImgLinksCrawlerService(ChromeDriverService):
