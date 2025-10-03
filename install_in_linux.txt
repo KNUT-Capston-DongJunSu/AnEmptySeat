@@ -1,4 +1,4 @@
-ssh -i ./.ssh/ec2-recover-key ubuntu@54.196.225.37
+ssh -i ./.ssh/ec2-recover-key ubuntu@50.16.92.195
 
 # PPA 추가에 필요한 기본 패키지 설치
 sudo apt install software-properties-common -y
@@ -59,5 +59,16 @@ pip install python-decouple
 # ocsort는 종속성 설치 없이
 pip install ocsort --no-deps
 
+source ./venv/bin/activate && cd ./AnEmptySeat && gunicorn --bind 0.0.0.0:8000 --chdir src config.wsgi
 
-gunicorn --bind 0.0.0.0:8000 --chdir src config.wsgi
+# 1. 서비스 파일을 시스템에 등록
+sudo systemctl daemon-reload
+
+# 2. Gunicorn 서비스 시작
+sudo systemctl start gunicorn
+
+# 3. 서버 부팅 시 자동으로 서비스가 시작되도록 활성화
+sudo systemctl enable gunicorn
+
+# 4. 서비스 상태 확인
+sudo systemctl status gunicorn
