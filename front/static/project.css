@@ -7,6 +7,16 @@
     box-sizing: border-box;
 }
 
+.icon {
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center;     /* 세로 중앙 정렬 */
+
+    /* 아이콘을 담을 영역의 높이를 지정해야 세로 정렬이 의미가 있습니다. */
+    height: 250px; /* 원하는 높이로 조절하세요 */
+    margin-bottom: 20px; /* 아이콘과 아래 그래프 사이의 간격 */
+}
+
 .carousel {
   width: 800px;       /* 원하는 고정 너비 또는 max-width 사용 */
   max-width: 100%;
@@ -104,6 +114,7 @@ body {
     align-items: center;
     padding: 20px 0;
 }
+
 .sidebar .logo { font-size: 24px; margin-bottom: 30px; }
 .sidebar .menu ul { list-style: none; }
 .sidebar .menu li { padding: 25px 0; text-align: center; cursor: pointer; } /* 간격 조정 */

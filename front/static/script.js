@@ -52,52 +52,28 @@ setInterval(updateGraph, 5000);
 const populationDiv = document.querySelector('.population-details');
 const countElement = document.getElementById('population-count');
 const CongestionElement = document.getElementById('congestion-steps');
-//const value = 0;
+const iconElement = document.getElementById('density_Icon');
 
 // 2. HTML에 저장해둔 API URL을 가져옵니다.
 const apiUrl = populationDiv.dataset.url;
 
-// 3. 혼잡도 데이터를 요청하고 화면을 업데이트하는 함수를 만듭니다.
-function updateCongestionStatus() {
-    fetch(apiUrl) // API에 데이터 요청
-        .then(response => response.json()) // 응답을 JSON 형태로 변환
-        .then(data => {
-            // JSON 데이터에서 object_count 값을 사용해 화면의 텍스트를 변경
-            // 예: data = {"level": 3, "label": "혼잡", "object_count": 52}
-            countElement.textContent = `${data.object_count}명`;
-            //value = parseInt(data.object_count);
-            CongestionElement.textContent = `${data.label}`;
-        })
-        .catch(error => {
-            // 에러가 발생하면 콘솔에 출력
-            console.error('데이터를 불러오는 데 실패했습니다:', error);
-            countElement.textContent = '오류';
-        });
-}
-
-// 4. 페이지가 처음 로드될 때 한번 실행하고,
-updateCongestionStatus();
-
-// 5. 그 후 5초(5000ms)마다 주기적으로 함수를 반복 실행합니다. (시간은 조절 가능)
-setInterval(updateCongestionStatus, 5000);
-
-// 혼잡도 수치에 따라 아이콘과 색상을 업데이트하는 함수
-function density_Icon(value) {
-    const iconElement = document.getElementById('density_Icon');
-    const valueElement = document.getElementById('population-count');
+function updateIcon(label) {
     let newIconClass = '';
     let newColor = '';
 
     // 1. 값에 따라 아이콘 클래스와 색상을 결정합니다.
-    if (value <= 30) { // 0~30: 원활
+    if (label === "원활") {
         newIconClass = 'fa-solid fa-face-grin-beam fa-8x';
         newColor = '#5cb85c'; // 초록색
-    } else if (value <= 50 && value > 30) { // 31~70: 보통
+
+    } else if (label === "보통") { 
         newIconClass = 'fa-solid fa-face-meh fa-8x';
         newColor = '#f0ad4e'; // 주황색
-    } else if (value > 50 && value <= 71) { // 71 이상: 혼잡
+
+    } else if (label === "혼잡") { 
         newIconClass = 'fa-solid fa-face-frown fa-8x';
         newColor = '#d9534f'; // 빨간색
+
     }
     else {
         newIconClass = 'fa-solid fa-face-dizzy fa-8x';
@@ -108,15 +84,34 @@ function density_Icon(value) {
     // className을 통째로 바꿔서 'fa-solid fa-2x'는 유지하고 아이콘 이름만 교체합니다.
     iconElement.className = newIconClass; 
     iconElement.style.color = newColor;
-
-    // 3. 화면에 현재 값도 표시해 줍니다.
-    valueElement.textContent = value;
 }
 
-// === 함수 테스트 ===
-// updateCongestionIcon(25);  // 원활 아이콘 표시
-// updateCongestionIcon(65);  // 보통 아이콘 표시
-density_Icon(72);  // 혼잡 아이콘 표시
+// 3. 혼잡도 데이터를 요청하고 화면을 업데이트하는 함수를 만듭니다.
+function updateCongestionStatus() {
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            // 데이터를 성공적으로 받아온 직후, 순서대로 UI를 업데이트합니다.
+            
+            // 4-1. 텍스트 업데이트
+            countElement.textContent = `${data.object_count}명`;
+            congestionElement.textContent = data.label;
+
+            // 4-2. 아이콘 업데이트 (데이터 값을 직접 전달)
+            updateIcon(data.label);
+        })
+        .catch(error => {
+            console.error('데이터를 불러오는 데 실패했습니다:', error);
+            countElement.textContent = '오류';
+            congestionElement.textContent = '알 수 없음';
+            updateIcon('오류'); // 오류 상황일 때 아이콘도 업데이트
+        });
+}
+// 4. 페이지가 처음 로드될 때 한번 실행하고,
+updateCongestionStatus();
+
+// 5. 그 후 5초(5000ms)마다 주기적으로 함수를 반복 실행합니다. (시간은 조절 가능)
+setInterval(updateCongestionStatus, 5000);
 
 
 // ===================================================
