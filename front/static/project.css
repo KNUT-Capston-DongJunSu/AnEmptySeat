@@ -1,66 +1,14 @@
-/* 기본 스타일 초기화 및 폰트 설정 */
+/* =================================================== */
+/* 1. 기본 설정 및 폰트 */
+/* =================================================== */
+
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
 
+/* 모든 요소의 기본 여백 제거 및 박스 크기 계산 방식 변경 */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-.icon {
-    display: flex;
-    justify-content: center; /* 가로 중앙 정렬 */
-    align-items: center;     /* 세로 중앙 정렬 */
-
-    /* 아이콘을 담을 영역의 높이를 지정해야 세로 정렬이 의미가 있습니다. */
-    height: 250px; /* 원하는 높이로 조절하세요 */
-    margin-bottom: 20px; /* 아이콘과 아래 그래프 사이의 간격 */
-}
-
-.carousel {
-  width: 800px;       /* 원하는 고정 너비 또는 max-width 사용 */
-  max-width: 100%;
-  margin:0 auto;     /* <-- 핵심: 가로 중앙 정렬 */
-  position: relative;
-  display: flex;      /* 버튼을 포함해 중앙에 정렬하고 싶으면 flex 사용 */
-  align-items: center;
-  justify-content: center;
-  align-content: center;
-  gap: 12px;
-}
-
-.viewport {
-  width: 600px;            /* 보여질 영역 너비 */
-  overflow: hidden;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-}
-.track {
-  display: flex;
-  transition: transform 0.5s ease;
-  will-change: transform;
-}
-.track img {
-  width: 600px;            /* viewport와 동일하게 */
-  flex-shrink: 0;
-  object-fit: cover;
-  display: block;
-  align-self: center;
-}
-.btn {
-  background: rgba(0,0,0,0.6);
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  font-size: 24px;
-  cursor: pointer;
-  user-select: none;
-}
-
-.btn:disabled {
-  opacity: 0.4;
-  cursor: default;
 }
 
 body {
@@ -72,7 +20,12 @@ body {
     height: 100vh;
 }
 
-/* 상단 헤더 스타일 */
+
+/* =================================================== */
+/* 2. 전체 레이아웃 */
+/* =================================================== */
+
+/* 상단 헤더 */
 .top-header {
     display: flex;
     justify-content: space-between;
@@ -82,25 +35,11 @@ body {
     border-bottom: 1px solid #e0e0e0;
     height: 60px;
 }
-.main-title {
-    font-size: 24px;
-    font-weight: 700;
-}
-.clock {
-    font-size: 16px;
-    font-weight: 500;
-    color: #555;
-    min-width: 180px; /* 시계 영역 너비 고정 */
-    text-align: right;
-}
-.header-placeholder {
-    min-width: 180px; /* 시계 영역과 동일한 너비로 중앙 정렬 맞춤 */
-}
 
-/* 전체 레이아웃 컨테이너 */
+/* 전체 컨텐츠 컨테이너 */
 .container {
     display: flex;
-    flex: 1; 
+    flex: 1; /* 헤더를 제외한 나머지 공간을 모두 차지 */
     overflow: hidden;
 }
 
@@ -115,73 +54,197 @@ body {
     padding: 20px 0;
 }
 
-.sidebar .logo { font-size: 24px; margin-bottom: 30px; }
-.sidebar .menu ul { list-style: none; }
-.sidebar .menu li { padding: 25px 0; text-align: center; cursor: pointer; } /* 간격 조정 */
-.sidebar .menu li:hover { background-color: #0056b3; }
-.sidebar .menu a { color: white; text-decoration: none; display: flex; flex-direction: column; align-items: center; font-size: 12px; }
-.sidebar .menu i { font-size: 20px; margin-bottom: 5px; }
-
-/* 메인 콘텐츠 */
+/* 메인 컨텐츠 영역 */
 .main-content {
     display: flex;
     flex: 1;
 }
 
-/* 정보 패널 */
+
+/* =================================================== */
+/* 3. 컴포넌트 스타일 */
+/* =================================================== */
+
+/* --- 상단 헤더 --- */
+.main-title {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.clock {
+    font-size: 16px;
+    font-weight: 500;
+    color: #555;
+    min-width: 180px; /* 시계 영역 너비를 고정하여 중앙 정렬 유지 */
+    text-align: right;
+}
+
+.header-placeholder {
+    min-width: 180px; /* 시계와 동일한 너비로 공간을 차지하여 제목 중앙 정렬 */
+}
+
+/* --- 사이드바 메뉴 --- */
+.sidebar .logo {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+.sidebar .menu ul {
+    list-style: none;
+}
+.sidebar .menu li {
+    padding: 25px 0;
+    text-align: center;
+    cursor: pointer;
+}
+.sidebar .menu li:hover {
+    background-color: #0056b3;
+}
+.sidebar .menu a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+}
+.sidebar .menu i {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+/* --- 정보 패널 (좌측) --- */
 .info-panel {
-    width:50%; /* 왼쪽 패널 너비 고정 */
+    width: 50%;
     padding: 20px;
     background-color: #fff;
-    overflow-y: auto;
+    overflow-y: auto; /* 내용이 많아지면 스크롤 */
     border-right: 1px solid #e0e0e0;
 }
-.info-panel .header { margin-bottom: 20px; }
-.info-panel .header h2 { font-size: 28px; }
-.info-panel .header span { font-size: 12px; color: #888; }
+.info-panel .header {
+    margin-bottom: 20px;
+}
+.info-panel .header h2 {
+    font-size: 28px;
+}
+.info-panel .header span {
+    font-size: 12px;
+    color: #888;
+}
 
-.card { background-color: #f8f9fa; border-radius: 10px; padding: 20px; margin-bottom: 15px; border: 1px solid #e9ecef; }
-.card h3 { margin-bottom: 15px; font-size: 18px; }
-.population-graph img { width: 100%; margin-bottom: 15px; border-radius: 5px; }
-.population-details .count { font-size: 24px; font-weight: bold; color: #007bff; margin-bottom: 10px; }
-.population-details p { font-size: 14px; line-height: 1.6; }
+/* --- 카드 --- */
+.card {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #e9ecef;
+}
+.card h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
 
-/* 이미지 영역 */
-.imag-area {
+/* --- 인구 통계 그래프 --- */
+.population-graph img {
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+.population-details .count {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+.population-details p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* --- 혼잡도 아이콘 --- */
+.icon {
     display: flex;
-    justify-content: center; 
-    align-items: center; 
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    margin-bottom: 20px;
+}
+
+/* --- 이미지 캐러셀 --- */
+.carousel {
+    width: 800px;
+    max-width: 100%;
+    margin: 0 auto; /* 가로 중앙 정렬 */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px; /* 버튼과 뷰포트 사이 간격 */
+}
+.viewport {
+    width: 600px;
+    overflow: hidden;
+}
+.track {
+    display: flex;
+    transition: transform 0.5s ease;
+    will-change: transform; /* 애니메이션 성능 향상 */
+}
+.track img {
+    width: 600px; /* 뷰포트와 동일한 너비 */
+    flex-shrink: 0; /* 이미지가 줄어들지 않도록 설정 */
+    object-fit: cover;
+    display: block;
+}
+.btn {
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    font-size: 24px;
+    cursor: pointer;
+    user-select: none; /* 텍스트 선택 방지 */
+}
+.btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+/* --- 이미지 영역 (우측) --- */
+.imag-area { /* <-- 원래 클래스 이름(imag-area)으로 유지 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #e9ecef;
 }
 
-/* ======================== 모달 팝업 스타일 ======================== */
+/* =================================================== */
+/* 4. 모달 팝업 스타일 */
+/* =================================================== */
 
-/* 팝업 배경 (어두운 반투명 레이어) */
 .modal-overlay {
     position: fixed; /* 화면 전체에 고정 */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* 반투명 검은색 배경 */
+    background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* 다른 요소들보다 위에 표시 */
+    z-index: 1000;
 }
 
-/* 팝업 콘텐츠 영역 */
 .modal-content {
     background-color: white;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     position: relative;
     max-width: 90%;
     max-height: 90%;
 }
 
-/* 닫기 버튼 */
 .close-button {
     position: absolute;
     top: 10px;
@@ -193,18 +256,16 @@ body {
     border: none;
     cursor: pointer;
 }
-
 .close-button:hover {
     color: #333;
 }
 
-/* 모달 제목 */
 .modal-content h2 {
     margin-top: 0;
     margin-bottom: 20px;
 }
 
-/* 숨김 처리를 위한 클래스 */
+/* 유틸리티: 요소 숨김 처리 */
 .hidden {
-    display: none !important; /* !important를 사용해 확실히 숨김 */
+    display: none !important;
 }
