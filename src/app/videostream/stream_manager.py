@@ -17,7 +17,7 @@ class StreamManager:
         with self.lock:
             if video_name not in self.processors:
                 print(f"Creating new processor for {video_name}")
-                video_path = os.path.join(settings.BASE_DIR, 'front', video_name)
+                video_path = os.path.join(BASE_DIR, 'front', video_name)
                 if not os.path.exists(video_path):
                     return None
                 

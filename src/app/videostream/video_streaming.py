@@ -1,25 +1,64 @@
 import os
 import cv2
 import time
-import queue
 import threading
-from threading import Thread
 from collections import deque # 리스트의 크기를 일정하게 유지하기 위해 deque 사용
 from ocsort import OCSort
 from django.core.cache import cache
-from .video_streaming import SingleThreadStreamer
-from src.ml.yolo_manager import YoloManager
-from src.app.analy.density_plotter import LivePlotter
-from src.app.analy.density_estimation import DensityEstimator
 from src.ml.utils.tracking import tracking_object
 from src.ml.utils.drawing_boxes import draw_tracking_boxes
-from src.app.videostream.video_manager import BaseVideoCap, BaseVideoWriter
-
-from src.ml.utils.tracking import tracking_object
-from src.ml.utils.drawing_boxes import draw_tracking_boxes
-from src.app.analy.calc_congestion import CongestionCalculator
 from src.app.analy.occupancy import calc_spatial_density
+from src.app.analy.calc_congestion import CongestionCalculator
 
+class BaseVideoWriter:
+    def __init__(self):
+        self._writer = None
+        self._fps = 30
+
+    @property
+    def fps(self):
+        return self._fps
+    
+    @fps.setter
+    def fps(self, value):
+        self._fps = value
+    
+    def init_writer(self, width, height, filename):
+        if self._writer is None:
+            self._writer = cv2.VideoWriter(
+                filename, 
+                cv2.VideoWriter_fourcc(*'mp4v'), 
+                self._fps, (width, height)
+                )
+            
+        return self._writer
+    
+    def write(self, frame):
+        return self._writer.write(frame)
+    
+    def close_writer(self):
+        if self._writer:
+            self._writer.release()
+        cv2.destroyAllWindows() 
+            
+class BaseVideoCap:
+    def __init__(self):
+        self._capture = None
+
+    def init_cap(self, video_path):
+        if self._capture is None:
+            self._capture = cv2.VideoCapture(video_path)
+            if not self._capture.isOpened():
+                raise IOError(f"Cannot open video: {video_path}")
+            fps = int(self._capture.get(cv2.CAP_PROP_FPS))
+            frame_width = int(self._capture.get(cv2.CAP_PROP_FRAME_WIDTH)) 
+            frame_height = int(self._capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        
+        return self._capture, fps, frame_width, frame_height
+    
+    def close_cap(self):
+        self._capture.release()
+        cv2.destroyAllWindows()
 
 class BaseVideoStreamer:
     
@@ -42,8 +81,8 @@ class BaseVideoStreamer:
 
         self.tracker = OCSort(det_thresh=0.3, max_age=50, min_hits=1)
         self.model = model
-        self.plotter = LivePlotter()
-        self.estimator = DensityEstimator(camera_height, frame_height)
+        # self.plotter = LivePlotter()
+        # self.estimator = DensityEstimator(camera_height, frame_height)
     
 
 class VideoProcessor(threading.Thread):

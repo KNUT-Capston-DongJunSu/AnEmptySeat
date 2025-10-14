@@ -10,12 +10,8 @@ class VideostreamConfig(AppConfig):
         # 실제 운영 환경에서는 이 방식이 완벽하지 않을 수 있으므로 주의가 필요합니다.
         # (manage.py runserver는 두 번 실행될 수 있음)
         if os.environ.get('RUN_MAIN', None) != 'true':
-            from .video_streaming import VideoProcessor
-            from src.config.settings import BASE_DIR
+            from .stream_manager import StreamManager
             
-            video_path = os.path.join(BASE_DIR, 'front', 'your_default_video.mp4') # 기본 비디오 경로 설정
-            model_path = os.path.join(BASE_DIR, 'src', 'ml', 'weights', 'medium.pt')
-            
-            processor = VideoProcessor(video_path, model_path, 2.0)
-            processor.start()
+            processor = StreamManager()
+            processor.get_or_create_processor("111.mp4")
             print("Video processing background thread started.")
