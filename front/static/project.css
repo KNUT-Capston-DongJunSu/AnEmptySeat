@@ -44,9 +44,20 @@ body { font-family: 'Noto Sans KR', sans-serif; background-color: #f4f6f9; color
 /* =================================================== */
 @media (max-width: 768px) {
     .container { padding-top: 60px; padding-bottom: 60px; }
+
+    .main-title {
+        font-size: 1rem; /* 모바일에서는 18px로 더 작게 표시 */
+    }
     
     /* 데스크탑 사이드바 숨기기 */
     .container > .sidebar {
+        display: none;
+    }
+
+    .clock {
+        position: static; 
+    }
+    .header-placeholder {
         display: none;
     }
     
@@ -93,4 +104,13 @@ body { font-family: 'Noto Sans KR', sans-serif; background-color: #f4f6f9; color
     /* 기타 모바일용 스타일 */
     .icon { height: 180px; }
     .info-panel .header h2 { font-size: 22px; }
+
+    .population-graph img {
+    width: 100%;      /* 부모 너비에 꽉 채움 */
+    max-width: 500px; /* 하지만 최대 500px를 넘지 않도록 제한 */
+    height: auto;     /* 높이는 너비 비율에 맞춰 자동 조절 */
+    display: block;   /* 중앙 정렬을 위해 block 요소로 변경 */
+    margin: 0 auto;   /* 중앙 정렬 */
 }
+}
+
