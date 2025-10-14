@@ -1,4 +1,5 @@
-ssh -i ./.ssh/ec2-recover-key ubuntu@50.16.92.195
+ssh -i ./.ssh/joon.pem ubuntu@50.16.92.195
+
 
 # PPA 추가에 필요한 기본 패키지 설치
 sudo apt install software-properties-common -y
@@ -10,6 +11,7 @@ sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt update
 
 sudo apt install python3.10 python3.10-venv -y
+
 
 # apt 패키지 목록 업데이트
 sudo apt update
@@ -59,7 +61,9 @@ pip install python-decouple
 # ocsort는 종속성 설치 없이
 pip install ocsort --no-deps
 
-source ./venv/bin/activate && cd ./AnEmptySeat && gunicorn --bind 0.0.0.0:8000 --chdir src config.wsgi
+
+source ./venv/bin/activate && cd ./AnEmptySeat && python manage.py runserver 0.0.0.0:8000
+
 
 # 1. 서비스 파일을 시스템에 등록
 sudo systemctl daemon-reload
