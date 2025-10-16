@@ -12,7 +12,7 @@ def main():
         sys.path.insert(0, str(SRC_DIR))
 
     # 👇 실제 settings 경로로 교체
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.config.settings")
 
     from django.core.management import execute_from_command_line
     execute_from_command_line(sys.argv)
@@ -20,18 +20,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-"""
-
-python manage.py startapp reports
-python manage.py makemigrations 
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
-
-python manage.py makemigrations accounts chat chatbot found_items lost_items reports lost_insight police 
-
-from apps.accounts.models import User
-user_count = User.objects.count()
-print(user_count)
-1111
-"""
