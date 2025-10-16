@@ -90,10 +90,9 @@ class VideoProcessor(threading.Thread):
     하나의 비디오 스트림을 독립적으로 처리하는 스레드 클래스입니다.
     각 인스턴스는 고유한 캐시 키를 사용하여 다른 스트림과 데이터가 섞이지 않도록 합니다.
     """
-    def __init__(self, video_path, model, camera_height, cache_key_prefix):
+    def __init__(self, video_path, model, camera_height):
         super().__init__()
         self.daemon = True  # 메인 스레드 종료 시 함께 종료
-        self.cache_key_prefix = cache_key_prefix
         self.history_lock = threading.Lock()  # history 데이터 업데이트 시 경쟁 조건 방지를 위한 락
         self.congestion_calc = CongestionCalculator()
 
@@ -108,9 +107,9 @@ class VideoProcessor(threading.Thread):
         frame_id = 0
         
         # 2. 고유 캐시 키 사용: 모든 캐시 키에 접두사를 붙여 고유하게 만듭니다.
-        frame_cache_key = f'{self.cache_key_prefix}_frame'
-        status_cache_key = f'{self.cache_key_prefix}_status'
-        history_cache_key = f'{self.cache_key_prefix}_history'
+        frame_cache_key = 'latest_frame_bytes'
+        status_cache_key = 'current_congestion_status'
+        history_cache_key = 'congestion_history'
 
         while self.streamer.cap.isOpened():
             ret, frame = self.streamer.cap.read()

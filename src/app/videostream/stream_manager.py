@@ -25,8 +25,7 @@ class StreamManager:
                 processor = VideoProcessor(
                     video_path=video_path,
                     model=YOLO_MODEL, # 공유 모델 객체 전달
-                    camera_height=2.0,
-                    cache_key_prefix=f"stream_{video_name}" # 고유 캐시 키 생성
+                    camera_height=2.0
                 )
                 processor.start()
                 self.processors[video_name] = processor
