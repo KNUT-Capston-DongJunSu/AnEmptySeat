@@ -19,8 +19,10 @@ class StreamManager:
                 # 이미 실행 중이면 아무것도 하지 않음
                 return
 
-            print(f"Starting a new processor for '{file_name}'...")
-            video_path = f"media/videos/{file_name}" # 👈 실제 영상 경로 설정
+            print(f"Creating new processor for {file_name}")
+            video_path = os.path.join(BASE_DIR, 'front', file_name)
+            if not os.path.exists(video_path):
+                return None
 
             processor = VideoProcessor(
                 file_name=file_name,
@@ -31,5 +33,5 @@ class StreamManager:
             processor.start()
             self.processors[file_name] = processor
 
-# 애플리케이션 전체에서 사용할 단일 인스턴스    
+# 애플리케이션 전체에서 사용할 단일 인스턴스
 stream_manager = StreamManager()
