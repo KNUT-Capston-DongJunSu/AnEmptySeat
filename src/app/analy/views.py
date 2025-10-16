@@ -8,10 +8,10 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.core.cache import cache
 
-def congestion_status(request):
+def congestion_status(request, file_name):
     """현재 혼잡도 상태를 JSON으로 반환하는 API 뷰"""
     # ★★★ 전역 변수 대신 Django 캐시에서 상태 조회 ★★★
-    status = cache.get('current_congestion_status', {
+    status = cache.get(f'{file_name}_current_congestion_status', {
         "level": 0,
         "label": "측정중",
         "occupancy": 0,
@@ -20,9 +20,9 @@ def congestion_status(request):
     return JsonResponse(status)
 
 
-def congestion_graph_view(request):
+def congestion_graph_view(request, file_name):
     """캐시에 저장된 데이터를 바탕으로 통일된 y축을 사용하는 그래프 이미지를 생성하여 반환"""
-    history = cache.get('congestion_history')
+    history = cache.get(f'{file_name}_congestion_history')
 
     if not history:
         return HttpResponse("아직 데이터가 수집되지 않았습니다.", status=204)

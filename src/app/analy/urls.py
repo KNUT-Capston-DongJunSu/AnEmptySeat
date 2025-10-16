@@ -2,6 +2,11 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('api/congestion/', views.congestion_status, name='congestion_status'),
-    path('api/congestion_graph/', views.congestion_graph_view, name='congestion_graph'), # 이 줄 추가
+    # 2. 혼잡도 데이터 API URL (추가)
+    # 예: /api/status/cctv1.mp4/
+    path('api/status/<str:file_name>/', views.congestion_status, name='congestion_status'),
+
+    # 3. 그래프 이미지 API URL (추가)
+    # 예: /api/graph/cctv1.mp4/
+    path('api/graph/<str:file_name>/', views.congestion_graph_view, name='congestion_graph'),
 ]
