@@ -129,7 +129,7 @@ class VideoProcessor(threading.Thread):
             occupancy = calc_spatial_density(tracked_objects)
             level, label = self.congestion_calc.calculate_level(occupancy, object_count)
             
-            print(f"[{self.cache_key_prefix}] Occupancy: {occupancy:.2f}, Label: {label}")
+            print(f"Occupancy: {occupancy:.2f}, Label: {label}")
             plot = draw_tracking_boxes(frame, tracked_objects, label)
             
             # JPEG 이미지로 인코딩
