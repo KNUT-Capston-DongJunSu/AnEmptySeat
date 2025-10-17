@@ -1,0 +1,20 @@
+{
+  "format": "pt",
+  "quant": "fp32",
+  "preprocess": {
+    "imgsz": 640,
+    "letterbox": true,
+    "normalize": [0, 1]
+  },
+  "postprocess": {
+    "conf": 0.25,
+    "iou": 0.7,
+    "max_det": 300
+  },
+  "env": {
+    "ultralytics": "8.x",
+    "torch": "2.x",
+    "python": "3.x"
+  },
+  "git": "https://github.com/KNUT-Capston-DongJunSu/yolo-dev"
+}

@@ -5,7 +5,7 @@ from decouple import config
 DEBUG = True
 BASE_DIR = Path(__file__).resolve().parents[2]
 VIDEO_DIR = os.path.join(BASE_DIR, 'frontend')
-MODEL_PATH = os.path.join(BASE_DIR, 'weights', 'medium.pt')
+MODEL_PATH = os.path.join(BASE_DIR, 'models', 'capdi-y8m-640-crowdah-v1-fp32-pt-20250609.pt')
 SECRET_KEY = config('SECRET_KEY')
 
 ROOT_URLCONF = "backend.config.urls"
