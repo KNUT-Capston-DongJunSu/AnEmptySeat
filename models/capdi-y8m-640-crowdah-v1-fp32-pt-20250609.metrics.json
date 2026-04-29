@@ -1,0 +1,10 @@
+{
+  "mAP50": 0.9247,
+  "mAP50_95": 0.6768,
+  "precision": 0.90811,
+  "recall": 0.90699,
+  "dataset": "crowd-ah",
+  "dataset_source": "https://www.aihub.or.kr/aihubdata/data/view.do?searchKeyword=실내외+군중+특성+데이터&aihubDataSe=data&dataSetSn=71368",
+  "imgsz_train": 640,
+  "imgsz_infer_default": 640
+}

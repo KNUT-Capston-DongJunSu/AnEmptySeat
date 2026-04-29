@@ -13,7 +13,6 @@ images/
 data/
 results/*.mp4
 
-
 *.env
 
 *.json 
