@@ -1,0 +1,21 @@
+# python cache
+**/__pycache__/
+
+# IDE Configuration
+.idea/
+.vscode/
+
+frontend/static/image/
+frontend/static/video/
+
+images/
+
+data/
+results/*.mp4
+
+
+*.env
+
+*.json 
+
+*.mp4

@@ -1,0 +1,1 @@
+capdi-y8m-640-crowdah-v1-fp32-pt-20250609.pt

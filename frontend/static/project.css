@@ -1,0 +1,800 @@
+/* =================================================== */
+/* Mobile App Style - 모든 화면에서 모바일 앱 크기 */
+/* =================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body { 
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #000;
+    color: #1a1a1a;
+    display: flex; 
+    flex-direction: column; 
+    height: 100vh;
+    overflow: hidden;
+    margin: 0 auto;
+    max-width: 430px; /* 모든 화면에서 아이폰 크기로 제한 */
+}
+
+.hidden { 
+    display: none !important; 
+}
+
+
+/* =================================================== */
+/* 상단 상태바 스타일 (모바일 앱 느낌) */
+/* =================================================== */
+.top-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 1);
+    backdrop-filter: blur(20px);
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+    height: 60px;
+    position: fixed;
+    top: 0;
+    left: 50%; /* 중앙 정렬 */
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 430px;
+    z-index: 1000;
+}
+
+.main-title {
+    display: flex;
+    align-items: center;
+    gap: 4px; /* 아이콘과 텍스트 간격 */
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.3px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.main-title img {
+    width: 24px;
+    height: 24px;
+}
+
+/* .header-placeholder { 
+    width: 60px;
+} */
+
+.clock { 
+    font-size: 13px; 
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    font-variant-numeric: tabular-nums;
+}
+
+/* =================================================== */
+/* 메인 컨테이너 */
+/* =================================================== */
+.container { 
+    display: flex; 
+    flex: 1;
+    padding-top: 60px;
+    padding-bottom: 80px;
+    overflow: hidden;
+    background: #fff;
+    width: 100%;
+    max-width: 430px;
+}
+
+/* 데스크탑 사이드바 완전히 제거 */
+.sidebar {
+    display: none !important;
+}
+
+/* =================================================== */
+/* 메인 콘텐츠 영역 */
+/* =================================================== */
+.main-content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* 모든 패널을 전체 화면으로 */
+.content-panel {
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+.content-panel.active {
+    display: block;
+}
+
+.info-panel {
+    background: #fff;
+    padding: 20px 16px;
+}
+
+/* 스크롤바 숨김 */
+.info-panel::-webkit-scrollbar,
+.content-panel::-webkit-scrollbar {
+    display: none;
+}
+
+.info-panel,
+.content-panel {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* =================================================== */
+/* 헤더 섹션 */
+/* =================================================== */
+.info-panel .header {
+    margin-bottom: 24px;
+    text-align: center; /* 중앙 정렬 추가 */
+}
+
+.info-panel .header h2 { 
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+    letter-spacing: -0.5px;
+}
+
+.info-panel .header span {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+/* =================================================== */
+/* 카드 스타일 - 모던 앱 스타일 */
+/* =================================================== */
+.card { 
+    background: #f8f9fa;
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 16px;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.card:active {
+    transform: scale(0.98);
+    background: #f1f3f5;
+}
+
+.card h3 { 
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+}
+
+/* =================================================== */
+/* 아이콘 영역 */
+/* =================================================== */
+.icon { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 200px;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(168, 85, 247, 0.08));
+    border-radius: 24px;
+    position: relative;
+}
+
+.icon i {
+    font-size: 80px !important;
+    filter: drop-shadow(0 4px 20px rgba(139, 92, 246, 0.3));
+}
+
+/* =================================================== */
+/* 인구 정보 디스플레이 */
+/* =================================================== */
+.population-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 24px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(168, 85, 247, 0.08));
+    border-radius: 20px;
+    margin-top: 16px;
+}
+
+.population-details .count {
+    font-size: 48px;
+    font-weight: 800;
+    color: #8B5CF6;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.population-details .step {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    padding: 8px 20px;
+    background: rgba(139, 92, 246, 0.15);
+    border-radius: 12px;
+}
+
+/* =================================================== */
+/* 그래프 영역 */
+/* =================================================== */
+.population-graph {
+    margin: 16px 0;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.population-graph img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+    border: 1px solid #e9ecef;
+}
+
+/* =================================================== */
+/* 이미지 영역 - 전체 화면 */
+/* =================================================== */
+.imag-area {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+.imag-area.active {
+    display: block;
+}
+
+/* 뷰 전환 컨텐츠 */
+.view-content {
+    display: none;
+}
+
+.view-content.active {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 20px 16px;
+}
+
+/* 그래프/비디오 컨테이너 */
+.graph-container,
+.video-container {
+    width: 100%;
+    background: #fff;
+}
+
+.graph-container h3,
+.video-container h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.graph-container {
+    background: #f8f9fa;
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid #e9ecef;
+}
+
+.graph-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    border: 1px solid #e9ecef;
+}
+
+.video-container iframe,
+.video-container video,
+.video-container img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 16px;
+    border: none;
+}
+
+/* =================================================== */
+/* 캐러셀 */
+/* =================================================== */
+.carousel {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+.viewport {
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.track {
+    display: flex;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.track img {
+    width: 100%;
+    flex-shrink: 0;
+    display: block;
+}
+
+.btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    color: #1a1a1a;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn:active {
+    transform: translateY(-50%) scale(0.9);
+}
+
+.btn.prev { left: 12px; }
+.btn.next { right: 12px; }
+
+/* =================================================== */
+/* 하단 탭바 (네이티브 앱 스타일) - 모든 화면에서 표시 */
+/* =================================================== */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 430px;
+    background: #ffffff;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0 max(8px, env(safe-area-inset-bottom)); /* 아이폰 노치 대응 */
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 20px;
+    text-decoration: none;
+    color: #9ca3af;
+    transition: all 0.2s ease;
+    border-radius: 12px;
+    min-width: 70px;
+}
+
+.nav-item:hover {
+    background: rgba(108, 92, 231, 0.05);
+}
+
+.nav-item.active {
+    color: #6C5CE7;
+}
+
+.nav-icon {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+    transition: all 0.2s ease;
+}
+
+.nav-item.active .nav-icon {
+    transform: scale(1.1);
+}
+
+.nav-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+}
+
+.live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.1));
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    background: #ef4444;
+    border-radius: 50%;
+    animation: blink 1.5s ease-in-out infinite;
+}
+
+
+/* 활성 상태 */
+.live-badge.active {
+    color: #10b981;
+    border: 1px solid #10b981;
+}
+
+.live-badge.active .live-dot {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+/* 대기 상태 */
+.live-badge.standby {
+    color: #94a3b8;
+    border: 1px solid #94a3b8;
+}
+
+.live-badge.standby .live-dot {
+    width: 8px;
+    height: 8px;
+    background: #94a3b8;
+    border-radius: 50%;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.dashboard-card {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+    border-radius: 24px;
+    padding: 24px;
+    margin-bottom: 16px;
+    color: white;
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.25);
+}
+
+.dashboard-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: white;
+    opacity: 0.9;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.dashboard-item {
+    text-align: center;
+}
+
+.dashboard-item .value {
+    font-size: 28px;
+    font-weight: 1000;
+    line-height: 1;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dashboard-item .label {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.time-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.time-slot {
+  display: flex;                 /* 1. 자식 요소들을 가로로 배치 */
+  align-items: center;           /* 2. 모든 요소를 세로로 가운데 정렬 */
+  
+  /* --- 아래는 디자인을 위한 예시 스타일 --- */
+  background-color: #f3e8ff; /* 연보라색 배경 (예시) */
+  border-radius: 12px;         /* 둥근 모서리 */
+  padding: 16px;               /* 내부 여백 */
+  margin-bottom: 8px;          /* 슬롯 간의 간격 */
+}
+
+.time-slot:active {
+    transform: scale(0.98);
+    background: rgba(139, 92, 246, 0.12);
+}
+
+.time-slot .time {
+  flex-basis: 80px;  /* 3. 시간 텍스트가 차지할 기본 너비 고정 (HH:MM:SS) */
+  flex-shrink: 0;    /* (줄어들지 않음) */
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.congestion-bar {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  
+  flex-grow: 1;          /* 4. 남은 공간을 모두 차지 (가운데 배치됨) */
+  justify-content: center; /* 5. 점들을 bar 안에서 가운데 정렬 */
+}
+
+.congestion-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #e9ecef;
+}
+
+.congestion-dot.active {
+    background: linear-gradient(135deg, #8B5CF6, #A855F7);
+}
+
+.time-slot .status {
+  font-size: 13px;
+  font-weight: 500;
+  color: #8B5CF6;
+  
+  flex-basis: 70px;  /* 6. 상태 텍스트가 차지할 기본 너비 고정 */
+  flex-shrink: 0;    /* (줄어들지 않음) */
+  text-align: right; /* 7. 텍스트를 오른쪽 정렬 */
+}
+
+.recommend-card {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1));
+    border-radius: 20px;
+    padding: 20px;
+    border: 2px solid rgba(34, 197, 94, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.recommend-icon {
+    font-size: 36px;
+    color: #22c55e;
+}
+
+.recommend-content h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+}
+
+.recommend-content p {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.recommend-content .time-highlight {
+    font-size: 18px;
+    font-weight: 700;
+    color: #22c55e;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-row i {
+    font-size: 18px;
+    color: #8B5CF6;
+    width: 24px;
+    text-align: center;
+}
+
+.info-row .info-text {
+    flex: 1;
+    font-size: 14px;
+    color: #1a1a1a;
+}
+
+.congestion-display {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    margin: 16px 0;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.congestion-display h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+}
+
+/* 막대 그래프 컨테이너 */
+.congestion-bars {
+    margin-bottom: 20px;
+}
+
+.bar-container {
+    width: 100%;
+    height: 40px;
+    background: #f1f3f5;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 20px;
+    transition: all 0.6s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 16px;
+    font-weight: 700;
+    color: white;
+    font-size: 14px;
+}
+
+/* 혼잡도 레벨별 색상 */
+.bar-fill[data-level="0"] {
+    width: 0%;
+    background: #e5e7eb;
+}
+
+.bar-fill[data-level="1"] {
+    width: 25%;
+    background: linear-gradient(90deg, #10b981, #34d399);
+}
+
+.bar-fill[data-level="2"] {
+    width: 50%;
+    background: linear-gradient(90deg, #10b981, #fbbf24);
+}
+
+.bar-fill[data-level="3"] {
+    width: 75%;
+    background: linear-gradient(90deg, #fbbf24, #f97316);
+}
+
+.bar-fill[data-level="4"] {
+    width: 100%;
+    background: linear-gradient(90deg, #f97316, #ef4444);
+}
+
+/* 애니메이션 효과 */
+.bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* 라벨 */
+.congestion-labels {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 4px;
+}
+
+.congestion-labels .label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+/* 정보 카드 */
+.congestion-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.info-item {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+}
+
+.info-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+    margin-bottom: 8px;
+}
+
+.info-value {
+    display: block;
+    font-size: 20px;
+    font-weight: 800;
+    color: #1a1a1a;
+}
+
+/* =================================================== */
+/* 미디어 쿼리 - 모든 화면에서 동일한 스타일 */
+/* =================================================== */
+@media (min-width: 431px) {
+    /* 큰 화면에서는 중앙 정렬만 유지 */
+    body {
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* =================================================== */
+/* 태블릿/데스크탑 반응형 스타일 비활성화 */
+/* 모든 화면에서 모바일 앱(430px) UI를 유지하기 위해 제거됨 */
+/* =================================================== */
