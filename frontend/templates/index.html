@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>빈자리 - 영상 선택</title>
+    <link rel="stylesheet" href="{% static 'project.css' %}">
+    <style>
+        .index-container {
+            max-width: 480px;
+            margin: 80px auto;
+            padding: 24px;
+            color: #f0f0f0;
+        }
+        .index-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #ffffff;
+        }
+        .file-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .file-list a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            background: #1e1e2e;
+            color: #f0f0f0;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: background 0.15s;
+        }
+        .file-list a:hover {
+            background: #2a2a3e;
+        }
+        .empty {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="index-container">
+        <p class="index-title">📹 분석할 영상을 선택하세요</p>
+        {% if files %}
+        <ul class="file-list">
+            {% for file in files %}
+            <li>
+                <a href="{% url 'main' file_name=file %}">
+                    🎬 {{ file }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="empty">frontend/static/video/ 폴더에 .mp4 파일이 없습니다.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

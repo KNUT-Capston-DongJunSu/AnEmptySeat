@@ -1,5 +1,5 @@
 import os, cv2, time, threading
-from collections import deque 
+from collections import deque, defaultdict
 from django.core.cache import cache
 from backend.config.settings import VIDEO_DIR
 
@@ -9,7 +9,7 @@ from .video_manager import BaseVideoStreamer
 from ..analytics.occupancy import calc_spatial_density
 from ..analytics.calc_congestion import CongestionCalculator
 from ..ml.tracking import tracking_object
-from ..ml.postprocessing import draw_tracking_boxes
+from ..ml.postprocessing import draw_tracking_boxes, draw_proximity_lines
 
 class VideoProcessor(threading.Thread):
     """
@@ -25,6 +25,7 @@ class VideoProcessor(threading.Thread):
         self.yolo_model = model
         self.congestion_calc = CongestionCalculator()
         self.tracker = OCSort(det_thresh=0.3, max_age=50, min_hits=1)
+        self.track_trails = defaultdict(lambda: deque(maxlen=50))
 
         video_path = os.path.join(VIDEO_DIR, file_name)
         self.streamer = BaseVideoStreamer(video_path, True, file_name)
@@ -64,7 +65,17 @@ class VideoProcessor(threading.Thread):
             level, label = self.congestion_calc.calculate_level(occupancy, object_count)
             
             print(f"[{self.file_name}] Occupancy: {occupancy:.2f}, Label: {label}")
-            plot = draw_tracking_boxes(frame, tracked_objects, label)
+            # [바운딩 박스만]
+            # plot = draw_tracking_boxes(frame, tracked_objects, label, bbox_color="yellow", show_status=False)
+
+            # [바운딩 박스 + 이동 경로]
+            # plot = draw_tracking_boxes(frame, tracked_objects, label, self.track_trails, bbox_color="yellow", show_status=False)
+
+            # [바운딩 박스 + 이동 경로 + 상태 텍스트]
+            plot = draw_tracking_boxes(frame, tracked_objects, label, self.track_trails, bbox_color="yellow", show_status=True)
+
+            # [전체 연결선] 주석 해제 시 위 plot에 모든 객체 쌍 연결선 추가
+            # plot = draw_proximity_lines(plot, tracked_objects)
             
             # 처리된 프레임을 결과 영상 파일에 저장
             if self.streamer.save_enabled:

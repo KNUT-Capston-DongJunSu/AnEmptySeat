@@ -6,6 +6,7 @@ from functools import wraps
 
 from django.core.cache import cache
 from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse, StreamingHttpResponse
 
 from .apps import VideostreamConfig # 상태 확인용
@@ -30,7 +31,7 @@ def predictor_api_view(view_func):
             # 뷰 함수에 predictor를 키워드 인자로 전달
             return view_func(request, predictor=predictor, *args, **kwargs)
         except Exception as e:
-            # 예외 발생 시 일관된 에러 응답 반환
+            # 예외 발생 시 일관된 에러 응답 반환    
             return JsonResponse({'error': str(e)}, status=500)
     return _wrapped_view
 
